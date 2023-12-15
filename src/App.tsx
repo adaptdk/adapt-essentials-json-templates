@@ -1,13 +1,14 @@
-import React, { useMemo } from 'react';
-import { locations } from '@contentful/app-sdk';
-import ConfigScreen from './locations/ConfigScreen';
-import Field from './locations/Field';
-import EntryEditor from './locations/EntryEditor';
-import Dialog from './locations/Dialog';
-import Sidebar from './locations/Sidebar';
-import Page from './locations/Page';
-import Home from './locations/Home';
-import { useSDK } from '@contentful/react-apps-toolkit';
+import { locations } from "@contentful/app-sdk";
+import { useSDK } from "@contentful/react-apps-toolkit";
+import React, { useMemo } from "react";
+
+import ConfigScreen from "./locations/ConfigScreen";
+import Dialog from "./locations/Dialog";
+import EntryEditor from "./locations/EntryEditor";
+import Field from "./locations/Field";
+import Home from "./locations/Home";
+import Page from "./locations/Page";
+import Sidebar from "./locations/Sidebar";
 
 const ComponentLocationSettings = {
   [locations.LOCATION_APP_CONFIG]: ConfigScreen,
@@ -23,7 +24,9 @@ const App = () => {
   const sdk = useSDK();
 
   const Component = useMemo(() => {
-    for (const [location, component] of Object.entries(ComponentLocationSettings)) {
+    for (const [location, component] of Object.entries(
+      ComponentLocationSettings,
+    )) {
       if (sdk.location.is(location)) {
         return component;
       }

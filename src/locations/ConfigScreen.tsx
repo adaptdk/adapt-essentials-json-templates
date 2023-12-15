@@ -1,9 +1,10 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { ConfigAppSDK } from '@contentful/app-sdk';
-import { Heading, Form, Paragraph, Flex } from '@contentful/f36-components';
-import { css } from 'emotion';
-import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
+import { ConfigAppSDK } from "@contentful/app-sdk";
+import { Flex, Form, Heading, Paragraph } from "@contentful/f36-components";
+import { /* useCMA, */ useSDK } from "@contentful/react-apps-toolkit";
+import { css } from "emotion";
+import React, { useCallback, useEffect, useState } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AppInstallationParameters {}
 
 const ConfigScreen = () => {
@@ -44,7 +45,8 @@ const ConfigScreen = () => {
     (async () => {
       // Get current parameters of the app.
       // If the app is not installed yet, `parameters` will be `null`.
-      const currentParameters: AppInstallationParameters | null = await sdk.app.getParameters();
+      const currentParameters: AppInstallationParameters | null =
+        await sdk.app.getParameters();
 
       if (currentParameters) {
         setParameters(currentParameters);
@@ -57,10 +59,15 @@ const ConfigScreen = () => {
   }, [sdk]);
 
   return (
-    <Flex flexDirection="column" className={css({ margin: '80px', maxWidth: '800px' })}>
+    <Flex
+      flexDirection="column"
+      className={css({ margin: `80px`, maxWidth: `800px` })}
+    >
       <Form>
         <Heading>App Config</Heading>
-        <Paragraph>Welcome to your contentful app. This is your config page.</Paragraph>
+        <Paragraph>
+          Welcome to your contentful app. This is your config page.
+        </Paragraph>
       </Form>
     </Flex>
   );

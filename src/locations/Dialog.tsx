@@ -1,7 +1,7 @@
-import React from 'react';
-import { Paragraph } from '@contentful/f36-components';
-import { DialogAppSDK } from '@contentful/app-sdk';
-import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
+import { DialogAppSDK } from "@contentful/app-sdk";
+import { Paragraph } from "@contentful/f36-components";
+import { /* useCMA, */ useSDK } from "@contentful/react-apps-toolkit";
+import React from "react";
 
 const Dialog = () => {
   const sdk = useSDK<DialogAppSDK>();

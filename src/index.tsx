@@ -1,21 +1,25 @@
-import { GlobalStyles } from '@contentful/f36-components';
-import { SDKProvider } from '@contentful/react-apps-toolkit';
+import { GlobalStyles } from "@contentful/f36-components";
+import { SDKProvider } from "@contentful/react-apps-toolkit";
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-import { createRoot } from 'react-dom/client';
-import App from './App';
-import LocalhostWarning from './components/LocalhostWarning';
+import App from "./App";
+import LocalhostWarning from "./components/LocalhostWarning";
 
-const container = document.getElementById('root')!;
-const root = createRoot(container);
+const container = document.getElementById(`root`);
 
-if (process.env.NODE_ENV === 'development' && window.self === window.top) {
-  // You can remove this if block before deploying your app
-  root.render(<LocalhostWarning />);
-} else {
-  root.render(
-    <SDKProvider>
-      <GlobalStyles />
-      <App />
-    </SDKProvider>
-  );
+if (container) {
+  const root = createRoot(container);
+
+  if (process.env.NODE_ENV === `development` && window.self === window.top) {
+    // You can remove this if block before deploying your app
+    root.render(<LocalhostWarning />);
+  } else {
+    root.render(
+      <SDKProvider>
+        <GlobalStyles />
+        <App />
+      </SDKProvider>,
+    );
+  }
 }
