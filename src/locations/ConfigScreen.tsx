@@ -1,14 +1,33 @@
 import { ConfigAppSDK } from "@contentful/app-sdk";
-import { Flex, Form, Heading, Paragraph } from "@contentful/f36-components";
+import {
+  Button,
+  Flex,
+  Form,
+  Heading,
+  Paragraph,
+} from "@contentful/f36-components";
 import { /* useCMA, */ useSDK } from "@contentful/react-apps-toolkit";
 import { css } from "emotion";
 import React, { useCallback, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AppInstallationParameters {}
+export interface AppInstallationParameters {
+  templates: Array<{
+    id: string;
+    name: string;
+  }>;
+}
 
 const ConfigScreen = () => {
-  const [parameters, setParameters] = useState<AppInstallationParameters>({});
+  const [parameters, setParameters] = useState<AppInstallationParameters>({
+    templates: [],
+  });
+
+  const [templates, setTemplates] = useState<
+    AppInstallationParameters[`templates`]
+  >(parameters.templates || []);
+
   const sdk = useSDK<ConfigAppSDK>();
   /*
      To use the cma, inject it as follows.
@@ -58,6 +77,16 @@ const ConfigScreen = () => {
     })();
   }, [sdk]);
 
+  const addTemplate = () => {
+    const updatedTemplates = [...templates];
+    updatedTemplates.push({
+      id: uuidv4(),
+      name: `Untitled template`,
+    });
+
+    setTemplates(updatedTemplates);
+  };
+
   return (
     <Flex
       flexDirection="column"
@@ -68,6 +97,11 @@ const ConfigScreen = () => {
         <Paragraph>
           Welcome to your contentful app. This is your config page.
         </Paragraph>
+        {templates?.at(0) &&
+          templates.map(({ id, name }) => <div key={id}>{name}</div>)}
+        <Button variant={`positive`} onClick={addTemplate}>
+          Add template
+        </Button>
       </Form>
     </Flex>
   );
