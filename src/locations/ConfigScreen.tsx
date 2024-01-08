@@ -13,16 +13,14 @@ import {
   Stack,
   Select,
   Radio,
-  ModalLauncher,
-  ModalConfirm,
 } from '@contentful/f36-components';
-import { PlusIcon, DeleteIcon, CopyIcon } from '@contentful/f36-icons';
+import { PlusIcon, CopyIcon } from '@contentful/f36-icons';
 import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
 import { css } from 'emotion';
 import React, { useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { ConfirmRemoval } from './ConfirmRemoval';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AppInstallationParameters {
   templates: Array<{
     id: string;
