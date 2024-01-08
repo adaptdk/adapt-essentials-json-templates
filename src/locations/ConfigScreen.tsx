@@ -384,14 +384,14 @@ const ConfigScreen = () => {
         </Flex>
       ))}
       <IconButton
-        aria-label="Add a new template"
+        aria-label="Add template"
         icon={<PlusIcon />}
         variant="positive"
         onClick={() => {
           addTemplate();
         }}
       >
-        Add a new template
+        Add template
       </IconButton>
     </Form>
   );
