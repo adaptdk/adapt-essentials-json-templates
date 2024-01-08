@@ -37,113 +37,53 @@ export interface AppInstallationParameters {
   }>;
 }
 
-function ConfirmRemoval({
-  dialogText = 'Are you sure you want to remove it?',
-  action = 'Remove',
-  onConfirm,
-  buttonClassName,
-}: Readonly<{
-  dialogText?: string;
-  action?: 'Remove' | 'Delete';
-  onConfirm: () => void;
-  buttonClassName?: string;
-}>) {
-  const onRemove = () => {
-    ModalLauncher.open(({ isShown, onClose }) => {
-      return (
-        <ModalConfirm
-          title={`Confirm ${action === 'Remove' ? 'removal' : 'deletion'}`}
-          intent="negative"
-          isShown={isShown}
-          onCancel={() => {
-            onClose(false);
-          }}
-          onConfirm={() => {
-            onClose(true);
-          }}
-          confirmLabel={action}
-          cancelLabel="Cancel"
-        >
-          <Text>{dialogText}</Text>
-        </ModalConfirm>
-      );
-    }).then((result) => {
-      if (result === true) {
-        onConfirm();
-      }
-    });
-  };
-
-  return (
-    <IconButton
-      aria-label={
-        action === 'Remove' ? 'Remove the field' : 'Delete the template'
-      }
-      variant="negative"
-      icon={<DeleteIcon />}
-      onClick={onRemove}
-      className={buttonClassName}
-    />
-  );
-}
-
 const ConfigScreen = () => {
+  const sdk = useSDK<ConfigAppSDK>();
+
   const [parameters, setParameters] = useState<AppInstallationParameters>({
     templates: [],
   });
 
   const [templates, setTemplates] = useState<
     AppInstallationParameters[`templates`]
-  >(parameters.templates || []);
-
-  const sdk = useSDK<ConfigAppSDK>();
-  /*
-    To use the cma, inject it as follows.
-    If it is not needed, you can remove the next line.
-  */
-  // const cma = useCMA();
+  >(parameters.templates);
 
   const onConfigure = useCallback(async () => {
-    // This method will be called when a user clicks on "Install"
-    // or "Save" in the configuration screen.
-    // for more details see https://www.contentful.com/developers/docs/extensibility/ui-extensions/sdk-reference/#register-an-app-configuration-hook
-
-    // Get current the state of EditorInterface and other entities
-    // related to this app installation
     const currentState = await sdk.app.getCurrentState();
-
     return {
-      // Parameters to be persisted as the app configuration.
       parameters,
-      // In case you don't want to submit any update to app
-      // locations, you can just pass the currentState as is
       targetState: currentState,
     };
   }, [parameters, sdk]);
 
   useEffect(() => {
-    // `onConfigure` allows to configure a callback to be
-    // invoked when a user attempts to install the app or update
-    // its configuration.
     sdk.app.onConfigure(() => onConfigure());
-  }, [sdk, onConfigure]);
+  }, [sdk, onConfigure, parameters]);
 
   useEffect(() => {
     (async () => {
-      // Get current parameters of the app.
-      // If the app is not installed yet, `parameters` will be `null`.
       const currentParameters: AppInstallationParameters | null =
         await sdk.app.getParameters();
 
       if (currentParameters) {
         setParameters(currentParameters);
       }
-
-      // Once preparation has finished, call `setReady` to hide
-      // the loading screen and present the app to a user.
       sdk.app.setReady();
     })();
   }, [sdk]);
+
+  useEffect(() => {
+    if (parameters.templates?.at(0)) {
+      setTemplates(parameters.templates);
+    }
+  }, [parameters]);
+
+  useEffect(() => {
+    setParameters((prev) => ({
+      ...prev,
+      templates,
+    }));
+  }, [templates]);
 
   const addTemplate = () => {
     const updatedTemplates = [...templates];
@@ -154,7 +94,10 @@ const ConfigScreen = () => {
       fields: [],
     });
 
-    setTemplates(updatedTemplates);
+    setTemplates((prev) => ({
+      ...prev,
+      templates: updatedTemplates,
+    }));
   };
 
   return (
