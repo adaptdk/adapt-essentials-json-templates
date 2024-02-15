@@ -1,6 +1,6 @@
 import { FormControl, Switch, TextInput } from "@contentful/f36-components";
 import { css } from "emotion";
-import React, { useState } from "react";
+import React from "react";
 
 import {
   TypeTemplateField,
@@ -13,12 +13,10 @@ type Props = {
 };
 
 export const Boolean = ({ field, updateField }: Props) => {
-  const [booleanState, setBooleanState] = useState(!!field.defaultValue);
-
   const handleBooleanChange = () => {
-    const value = !booleanState;
+    const prevValue = field.defaultValue;
+    const value = !prevValue;
 
-    setBooleanState(value);
     updateField({ defaultValue: value });
   };
 
@@ -41,7 +39,10 @@ export const Boolean = ({ field, updateField }: Props) => {
         <FormControl.Label className={css({ minWidth: `10ch` })}>
           Default value
         </FormControl.Label>
-        <Switch isChecked={booleanState} onChange={handleBooleanChange} />
+        <Switch
+          isChecked={!!field.defaultValue}
+          onChange={handleBooleanChange}
+        />
       </FormControl>
 
       <FormControl marginBottom={`none`}>
