@@ -6,7 +6,6 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import LocalhostWarning from "./components/LocalhostWarning";
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById(`root`)!;
 
 const root = createRoot(container);
