@@ -69,13 +69,6 @@ const ConfigScreen = () => {
     }
   }, [parameters]);
 
-  // useEffect(() => {
-  //   setParameters((prev) => ({
-  //     ...prev,
-  //     templates,
-  //   }));
-  // }, [templates]);
-
   const addTemplate = () => {
     const updatedTemplates = [...templates];
     updatedTemplates.push({
@@ -87,8 +80,6 @@ const ConfigScreen = () => {
 
     setTemplates(updatedTemplates);
   };
-
-  console.log(templates);
 
   return (
     <Form

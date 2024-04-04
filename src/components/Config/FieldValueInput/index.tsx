@@ -6,6 +6,7 @@ import type {
   TypeUpdateFieldParameters,
 } from "../../../utils/types";
 import { Boolean } from "./Boolean";
+import { Dropdown } from "./Dropdown";
 
 type Props = {
   field: TypeTemplateField;
@@ -17,7 +18,7 @@ const FieldValueInput = ({ field, updateField }: Props) => {
     case `boolean`:
       return <Boolean field={field} updateField={updateField} />;
     case `dropdown`:
-      return <div>dropdown</div>;
+      return <Dropdown field={field} updateField={updateField} />;
     case `number`:
       return (
         <FormControl marginBottom={`none`}>
