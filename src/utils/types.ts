@@ -15,6 +15,5 @@ export type TypeUpdateFieldParameters = Partial<Omit<TypeTemplateField, `id`>>;
 export type TypeTemplate = {
   id: string;
   name: string;
-  isCollection: boolean;
   fields: Array<TypeTemplateField> | [];
 };

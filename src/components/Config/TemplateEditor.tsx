@@ -97,27 +97,9 @@ const TemplateEditor = ({ template, setTemplates }: TypeTemplateEditor) => (
       </FormControl.HelpText>
     </FormControl>
 
-    <FormControl isRequired>
-      <FormControl.Label>Collection</FormControl.Label>
-      <Stack flexDirection="row">
-        <Radio id={`${template.id}}-yes`} name={template.id} value="yes">
-          Yes
-        </Radio>
-        <Radio
-          id={`${template.id}}-no`}
-          name={template.id}
-          value="no"
-          defaultChecked
-        >
-          No
-        </Radio>
-      </Stack>
-      <FormControl.HelpText>
-        Will it be used to store multiple entries of the same template?
-      </FormControl.HelpText>
-    </FormControl>
-
-    <SectionHeading>Fields</SectionHeading>
+    <SectionHeading className={css({ marginBottom: tokens.spacingXs })}>
+      Fields
+    </SectionHeading>
     <Flex flexDirection="column" marginBottom="spacingM">
       {template.fields?.at(0) ? (
         template.fields?.map((field: TypeTemplateField, idx: number) => (

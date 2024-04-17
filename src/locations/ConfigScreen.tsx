@@ -74,7 +74,6 @@ const ConfigScreen = () => {
     updatedTemplates.push({
       id: uuidv4(),
       name: `Untitled template`,
-      isCollection: false,
       fields: [],
     });
 
