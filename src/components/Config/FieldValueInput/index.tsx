@@ -36,6 +36,8 @@ const FieldValueInput = ({ field, updateField }: Props) => {
           <TextInput placeholder={field.defaultValue as string} />
         </FormControl>
       );
+    case `image`:
+      return null;
     default:
       return null;
   }

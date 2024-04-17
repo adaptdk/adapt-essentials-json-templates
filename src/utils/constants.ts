@@ -15,6 +15,10 @@ export const FIELD_TYPES = [
     type: `dropdown`,
     label: `Dropdown`,
   },
+  {
+    type: `image`,
+    label: `Image`,
+  },
 ];
 
 export const FIELD_TYPE_DEFAULT_VALUES = {
@@ -22,4 +26,5 @@ export const FIELD_TYPE_DEFAULT_VALUES = {
   number: `0`,
   dropdown: [],
   text: ``,
+  image: undefined,
 };

@@ -1,8 +1,11 @@
+import { Asset } from "@contentful/app-sdk";
+
 export type TypeTemplateField = {
   id: string;
   title: string;
-  type: `text` | `number` | `boolean` | `dropdown`;
+  type: `text` | `number` | `boolean` | `dropdown` | `image`;
   defaultValue: string | boolean | string[];
+  value?: string | boolean | string[] | Asset;
   yesLabel?: string;
   noLabel?: string;
 };
